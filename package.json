@@ -1,5 +1,5 @@
 {
-  "name": "xenia-express-plugin",
+  "name": "xenia-express-spa-plugin",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
