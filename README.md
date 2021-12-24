@@ -1,4 +1,4 @@
-# Xenia Express Plugin
+# Xenia Express SPA Plugin
 
 Xenia plugin for Express.
 
