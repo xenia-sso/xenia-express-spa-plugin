@@ -1,14 +1,21 @@
 {
-  "name": "xenia-express-spa-plugin",
-  "version": "1.0.0",
+  "name": "@xenia-sso/xenia-express-spa-plugin",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "pack": "npm pack",
-    "prettier": "prettier src/**/*.ts --write"
+    "prettier": "prettier src/**/*.ts --write",
+    "postversion": "git push --follow-tags"
   },
-  "author": "",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "url": "git://github.com/xenia-sso/xenia-express-spa-plugin.git"
+  },
+  "author": "Gaetan Chambouvet",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.16.0",
