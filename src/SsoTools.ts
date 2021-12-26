@@ -66,8 +66,8 @@ export class SsoTools {
     const options = init || {};
     options.headers = {
       ...(options.headers || {}),
-      client_id: this.options.clientId,
-      client_secret: this.options.clientSecret,
+      "client-id": this.options.clientId,
+      "client-secret": this.options.clientSecret,
     };
     try {
       const res = await fetch(url, options);
