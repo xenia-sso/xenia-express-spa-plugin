@@ -14,7 +14,7 @@ Xenia plugin for Express.
 ## Configuration
 
 ```javascript
-import xenia from "xenia-express-plugin";
+import xenia from "@xenia-sso/express-spa-plugin";
 
 app.use(
   xenia({
