@@ -68,11 +68,13 @@ export class SsoTools {
       ...(options.headers || {}),
       "client-id": this.options.clientId,
       "client-secret": this.options.clientSecret,
+      Accept: "application/json",
+      "Content-Type": "application/json",
     };
     try {
       const res = await fetch(url, options);
       if (!res.ok) {
-        throw new Error();
+        throw new Error(`${res.status} while calling ${url}\n${await res.text()}`);
       }
       return res;
     } catch (e) {
@@ -81,9 +83,9 @@ export class SsoTools {
   };
 
   userinfo = async (token: string) => {
-    const url = this.buildUrl(this.options.userinfoEndpointPath || "/oidc/userinfo", { token });
+    const url = this.buildUrl(this.options.userinfoEndpointPath || "/oidc/userinfo");
     try {
-      const res = await this.fetchSSO(url);
+      const res = await this.fetchSSO(url, { headers: { authorization: token } });
       return (await res.json()) as { id_token: string };
     } catch {
       return undefined;
@@ -94,6 +96,9 @@ export class SsoTools {
     const url = this.buildUrl(this.options.introspectEndpointPath || "/oauth2/introspect", { token });
     try {
       const res = await this.fetchSSO(url, { method: "POST" });
+      if (!res.ok) {
+        return { active: false };
+      }
       return (await res.json()) as { active: boolean };
     } catch {
       return { active: false };
@@ -101,14 +106,17 @@ export class SsoTools {
   };
 
   token = async (codeVerifier: string, authorizationCode: string) => {
-    const url = this.buildUrl(this.options.tokenEndpointPath || "/oauth2/token", {
-      grant_type: "authorization_code",
-      code_verifier: codeVerifier,
-      code: authorizationCode,
-    });
+    const url = this.buildUrl(this.options.tokenEndpointPath || "/oauth2/token");
 
     try {
-      const res = await this.fetchSSO(url, { method: "POST" });
+      const res = await this.fetchSSO(url, {
+        method: "POST",
+        body: JSON.stringify({
+          grant_type: "authorization_code",
+          code_verifier: codeVerifier,
+          code: authorizationCode,
+        }),
+      });
       return (await res.json()) as TokenResponse;
     } catch {
       return undefined;

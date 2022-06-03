@@ -33,7 +33,7 @@ export const authMiddleware = (jwtKey: string, ssoTools: SsoTools) => {
       return res.status(401).send({ ...UNAUTHORIZED_PAYLOAD, message: "Unable to get user info." });
     }
 
-    res.locals.user = ssoTools.idTokenStrToUserObj(data.id_token);
+    res.locals.user = data;
     res.locals.accessToken = accessToken;
     next();
   };
