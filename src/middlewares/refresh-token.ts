@@ -23,7 +23,7 @@ export const refreshTokenMiddleware = (jwtKey: string, ssoTools: SsoTools) => {
     }
 
     const userId = decoded.userId as string;
-    const accessToken = accessTokens.find((t) => t.userId === userId);
+    const accessToken = accessTokens.filter((t) => t.userId === userId).sort((a, b) => b.createdAt - a.createdAt)[0];
     if (!accessToken) {
       return res.status(401).send({ ...UNAUTHORIZED_PAYLOAD, message: "Access token not found." });
     }

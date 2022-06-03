@@ -13,6 +13,7 @@ const router = Router();
 interface AccessToken {
   userId: string;
   token: string;
+  createdAt: number;
 }
 
 interface CodeTuple {
@@ -105,7 +106,7 @@ export default (options: PluginOptions) => {
     }
 
     const userinfo = jwt.decode(data.id_token) as IdToken;
-    accessTokens.push({ userId: userinfo.sub, token: data.access_token });
+    accessTokens.push({ userId: userinfo.sub, token: data.access_token, createdAt: Date.now() });
     updateSessionsFile();
 
     res.cookie(
