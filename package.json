@@ -1,6 +1,6 @@
 {
   "name": "@xenia-sso/express-spa-plugin",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
