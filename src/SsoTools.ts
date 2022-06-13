@@ -53,7 +53,7 @@ export class SsoTools {
   };
 
   buildUrl = (path = "", queryParams: Record<string, string> = {}) => {
-    let url = `${this.options.baseUrl}${path}`;
+    let url = `${this.options.baseUrl}/api${path}`;
     if (Object.keys(queryParams).length > 0) {
       url = `${url}?${Object.entries(queryParams)
         .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
